@@ -87,3 +87,10 @@ def aloca_navios(mapa, blocos):
                 break
     
     return mapa
+
+#função que verifica se ainda há algum navio na matriz
+def foi_derrotado(matriz):
+    for linha in matriz:
+        if 'N' in linha:
+            return False
+    return True
