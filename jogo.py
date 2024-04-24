@@ -1,2 +1,11 @@
-#importa função que gera números aleatórios
-from random import randint
+#importando bibliotecas
+import random 
+from funcoes import *
+from dados_paises import *
+
+#while play:
+
+    #atribuindo o cabeçalho do jogo
+titulojogo = "Bem-Vindo a Batalha Naval!!"
+titulojogo= '╔'+"═"*len(titulojogo)+'╗'+'\n'+'║'+titulojogo + '║'+"\n"+'╚'+"═"*len(titulojogo)+'╝'
+print (titulojogo)
