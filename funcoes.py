@@ -94,3 +94,11 @@ def foi_derrotado(matriz):
         if 'N' in linha:
             return False
     return True
+
+#função que irá colorir o texto
+def colore(cor= "cor",texto="Texto",quebra_linha=True or False):
+    if quebra_linha:
+        print('{0}{1}{2}'.format(CORES[cor],texto,CORES['reset']))
+    else:
+        print('{0}{1}{2}'.format(CORES[cor],texto,CORES['reset']), end="")
+    return
