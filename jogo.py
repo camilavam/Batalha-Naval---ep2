@@ -27,6 +27,33 @@ def mostrar_tabjogador():
 def mostrar_tabcomp():
     print("\nTabuleiro do computador")
     for d in range(5):
-        print(ocultoComputador[d])
+        print(computadorOculto[d])
     print('----------------------------------')
+
+jogador = tabuleiro(5,10)
+computador = tabuleiro(5,10)
+computadorOculto = tabuleiro(5,10)
+
+#pede a posição ao jogador
+for i in range(5):
+    while jogador_valido != 'válido':
+        xy = str(input(f'Digite a posição do {i} do barco, para x de 0 à 4, para y de 0 à 9(x,y): '))
+        if xy not in posicoes_jogador:
+            jogador[int(xy[0])][int(xy[1])] = 1
+            posicoes_jogador.append(xy)
+            jogador_valido = 'válido'
+
+    while comp_valido != 'válido':
+        xy = str(randint(0,4)) + str(randint(0,9))
+        if xy not in posicoes_comp:
+            computador[int(xy[0])][int(xy[1])] = 1
+            posicoes_comp.append(xy)
+            comp_valido = 'válido'
+    jogador_valido = ''
+    comp_valido = ''
+
+mostrar_tabcomp()
+mostrar_tabjogador()
+
+
 
