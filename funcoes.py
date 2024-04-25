@@ -1,4 +1,5 @@
 #funções que serão utilizadas no jogo 
+from dados_paises import *
 
 #função que irá criar o mapa da batalha naval
 def cria_mapa(N):
@@ -95,10 +96,9 @@ def foi_derrotado(matriz):
             return False
     return True
 
-#função que irá colorir o texto
-def colore(cor= "cor",texto="Texto",quebra_linha=True or False):
-    if quebra_linha:
-        print('{0}{1}{2}'.format(CORES[cor],texto,CORES['reset']))
-    else:
-        print('{0}{1}{2}'.format(CORES[cor],texto,CORES['reset']), end="")
+#função que vai colorir 
+def colore(cor, texto):
+    txt = CORES[cor] + texto + CORES["reset"]
+    print(txt)
     return
+

@@ -5,7 +5,8 @@ from dados_paises import *
 
 #while play:
 
-    #atribuindo o cabeçalho do jogo
+#atribuindo o cabeçalho do jogo
 titulojogo = "Bem-Vindo a Batalha Naval!!"
-titulojogo= '╔'+"═"*len(titulojogo)+'╗'+'\n'+'║'+titulojogo + '║'+"\n"+'╚'+"═"*len(titulojogo)+'╝'
-print (titulojogo)
+tam= len(titulojogo)
+titulojogo= '╔'+"═"*tam +'╗'+'\n'+'║'+titulojogo + '║'+"\n"+'╚'+"═"*tam+'╝'
+colore("red","\n \n"+ titulojogo + "\n")
