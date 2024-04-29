@@ -101,4 +101,3 @@ def colore(cor, texto):
     txt = CORES[cor] + texto + CORES["reset"]
     print(txt)
     return
-
