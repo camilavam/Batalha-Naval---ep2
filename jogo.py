@@ -15,6 +15,9 @@ colore("red","\n \n"+ titulojogo + "\n")
 time.sleep(1)
 print("\n\u001b[32mRaposa, se prepare, pois a batalha naval vai começar!!\u001b[0m\n")
 
+#mostra paises e frotas
+print(PAISES)
+
 #mapa oponente
 mapaoponente = cria_mapa(10)
 
@@ -48,26 +51,6 @@ if paisjogador not in PAISES:
 frotajogador  = PAISES[paisjogador]
 print(frotajogador)
 
-linhajogador = (input("Digite a linha do mapa:"))
-lista_linha = [1,2,3,4,5,6,7,8,9,10]
-if linhajogador not in lista_linha:
-    print("Essa linha não está disponível")
-    linhajogador =(input("Digite a linha do mapa:"))
-
-
-colunajogador = (input("Digite a coluna do mapa:"))
-lista_coluna = [1,2,3,4,5,6,7,8,9,10]
-if colunajogador not in lista_coluna:
-    print("Essa coluna não está disponível")
-    colunajogador =(input("Digite a coluna do mapa:"))
-
-orientacaojogador = (input("Digite qual a orientação desejada[v,h]:"))
-lista_orientacao = ['v','h']
-if orientacaojogador not in lista_orientacao:
-    print("Essa orientacao não está disponível")
-    colunajogador =(input("Digite a orientacão do mapa:"))
-
-
 blocosjogador = []
 for naviojogador, qntd_naviojogador in frotajogador.items():
     for tipo_navio, tamanho in CONFIGURACAO.items():
@@ -76,6 +59,6 @@ for naviojogador, qntd_naviojogador in frotajogador.items():
             for i in range(num_navios):
                 blocosjogador.append(tamanho)
 
-alocacaojogador = posicao_suporta(mapajogador,blocosjogador,linhajogador,colunajogador,orientacaojogador)
+alocacaojogador = aloca_navios_player(mapajogador,blocosjogador)
 
 print(alocacaojogador)
