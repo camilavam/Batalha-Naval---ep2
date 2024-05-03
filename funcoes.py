@@ -74,32 +74,56 @@ def posicao_suporta(mapa, blocos, linha, coluna, orientacao):
     
     return True
 
+def imprimir_mapa(mapa, ALFABETO):
+    print("   ", end="")
+    for letra in ALFABETO:
+        print(letra + "  ", end="")
+        if letra == "J":
+            break
+    print('\n', end="")
+
+    for i in range(len(mapa)):
+        print(str(i + 1), " ", end="")
+        for j in range(len(mapa)):
+            if mapa[i][j] == "N":
+                print(" "," ", end="")
+            else:
+                print(mapa[i][j], " ", end="")
+        print(str(i + 1))
+
+    print("   ", end="")
+    for letra in ALFABETO:
+        print(letra + "  ", end="")
+        if letra == "J":
+            break
+    print('\n', end="")
+
+
 def aloca_navios_player(mapa,blocos):
     for blocos_navio in blocos:
-        while True:
+        
             linha = (input('qual a linha a ser alocada? '))
-            if linha not in ['1','2','3','4','5','6','7','8','9','10']:
-                print("\nu001b[32mEssa linha não está disponível\u001b[0m\n")
+            while linha not in ['1','2','3','4','5','6','7','8','9','10']:
+                print("\u001b[33mEssa linha não está disponível\u001b[0m\n")
                 linha = int(input('qual a linha a ser alocada? '))
                 time.sleep(1)
-            else:
-                linha = int(linha)
-                coluna = (input('qual a coluna a ser alocada? '))
-                if coluna not in ['1','2','3','4','5','6','7','8','9','10']:
-                    print("\nu001b[32mEssa coluna não está disponível\u001b[0m\n")
-                    linha = int(input('qual a coluna a ser alocada? '))
-                    time.sleep(1)
+        
+            linha = int(linha)
+            coluna = (input('qual a coluna a ser alocada? ')).upper()
+            while coluna not in ALFABETO [:10]:
+                print("Essa coluna não está disponível")
+                coluna = (input('qual a coluna a ser alocada? ')).upper()
+                time.sleep(1)
+        
+            coluna = ALFABETO.find(coluna)
+            orientacao = (input('qual a orientação?[h/v] ')).lower()
+            for e in orientacao:
+                if e == 'h' or e == 'v' or e == 'H' or e == 'V':
+                    orientacao = orientacao
                 else:
-                    coluna = int(coluna)
-                    orientacao = (input('qual a orientação?[h/v] ')).lower()
-                    for e in orientacao:
-                        if e == 'h' or e == 'v' or e == 'H' or e == 'V':
-                            print('FUNCIONOU PORRA by Camila Mendes!')
-                            orientacao = orientacao
-                        else:
-                            print("\nu001b[32mEssa orientação não está disponível\u001b[0m\n")
-                            orientacao = int(input('qual a orientação a ser atacada? '))
-
+                    print("\nu001b[32mEssa orientação não está disponível\u001b[0m\n")
+                    orientacao = int(input('qual a orientação a ser atacada? '))
+            
             if posicao_suporta(mapa,blocos_navio,linha,coluna,orientacao):
                 
                 if orientacao == 'v':
@@ -108,8 +132,10 @@ def aloca_navios_player(mapa,blocos):
                 else:
                     for i in range(blocos_navio):
                         mapa[linha][coluna + i] = 'N'
-
-            break
+            mostrar_mapa_jog(mapa,ALFABETO,"situação atual")
+                
+            
+            
     
     return mapa
 
@@ -133,71 +159,63 @@ def aloca_navios(mapa, blocos):
                 break
     
     return mapa
+print(aloca_navios)
 
 #Mostra mapa atualizado 
-def mostrar_mapa_comp(mapa_comp,ALFABETO): 
-    print("COMPUTADOR- {0}".format(PAISOPONENTE)) #Legenda antes de mostrar o mapa do computador
+def mostrar_mapa_comp(mapa, ALFABETO,titulo):
+    print(titulo)
 
-    #Printar letras (parte de cima) 
+    print("   ", end="")
+    for letra in ALFABETO:
+        print(letra + "  ", end="")
+        if letra == "J":
+            break
+    print('\n', end="")
 
-    print("   ",end="") #Espaçamento inicial 
-    for letra in ALFABETO: 
-        print(letra+"  ",end="") #determino o espaçamento entre as letras
-        if letra == "J": 
-            break 
-    print('\n',end="") 
+    for i in range(len(mapa)):
+        print(str(i + 1), " ", end="")
+        for j in range(len(mapa)):
+            if mapa[i][j] == "N":
+                print(" "," ", end="")
+            else:
+                print(mapa[i][j], " ", end="")
+        print(str(i + 1))
 
-    #Números laterais e linhas do mapa 
+    print("   ", end="")
+    for letra in ALFABETO:
+        print(letra + "  ", end="")
+        if letra == "J":
+            break
+    print('\n', end="")
+    return ""
 
-    for i in range (len(mapa_comp)): 
-        print(str(i+1)," ",end="") 
-        for j in range(len(mapa_comp)): 
-            print(mapa_comp[i][j], " ", end="") 
-        print(str(i+1)) 
+def mostrar_mapa_jog(mapa, ALFABETO,titulo):
+    print(titulo)
 
-    #Printar letras (parte debaixo) 
+    print("   ", end="")
+    for letra in ALFABETO:
+        print(letra + "  ", end="")
+        if letra == "J":
+            break
+    print('\n', end="")
 
-    print("   ",end="") #Espaçamento inicial 
-    for letra in ALFABETO: 
-        print(letra+"  ",end="") #determino o espaçamento entre as letras
-        if letra == "J": 
-            break 
-    print('\n',end="") 
-    return "" 
+    for i in range(len(mapa)):
+        print(str(i + 1), " ", end="")
+        for j in range(len(mapa)):
+            
+    
+            print(mapa[i][j], " ", end="")
+        print(str(i + 1))
+
+    print("   ", end="")
+    for letra in ALFABETO:
+        print(letra + "  ", end="")
+        if letra == "J":
+            break
+    print('\n', end="")
+    return ""
 
 
-# print(mostrar_mapa_comp(mapa_comp,ALFABETO)) #Nós não vamos printar na tela a posição dos navios do computador, será return. 
-
-###### mostrar_mapa_jog ###### 
-
-def mostrar_mapa_jog(mapa_jogador,ALFABETO): 
-    print("JOGADOR-") #Legenda antes de mostrar o mapa do jogador
-
-    #Printar letras (parte de cima) 
-
-    print("   ",end="") #Espaçamento inicial 
-    for letra in ALFABETO: 
-        print(letra+"  ",end="") #determino o espaçamento entre as letras
-        if letra == "J": 
-            break 
-    print('\n',end="") 
-
-    #Números laterais e linhas do mapa 
-
-    for i in range (len(mapa_jogador)): 
-        print(str(i+1)," ",end="") 
-        for j in range(len(mapa_jogador)): 
-            print(mapa_jogador[i][j], " ", end="") 
-        print(str(i+1)) 
-
-    #Printar letras (parte de cima) 
-
-    print("   ",end="") #Espaçamento inicial 
-    for letra in ALFABETO: 
-        print(letra+"  ",end="") #determino o espaçamento entre as letras
-        if letra == "J": 
-            break 
-    print('\n',end="")
 
 #função que verifica se ainda há algum navio na matriz
 def foi_derrotado(matriz):
@@ -211,3 +229,5 @@ def colore(cor, texto):
     txt = CORES[cor] + texto + CORES["reset"]
     print(txt)
     return
+
+#função 

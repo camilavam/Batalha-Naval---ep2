@@ -18,11 +18,13 @@ print("\n\u001b[32mRaposa, se prepare, pois a batalha naval vai começar!!\u001b
 #mostra paises e frotas
 for k, pais in enumerate(PAISES):
     print (f'{k + 1}:', pais)
-    for n, item in enumerate(PAISES[pais]):
-        print('     ', f'{n + 1}:', item)
+    for frota, quantidade in PAISES[pais].items():
+        print('     ', frota, ':', quantidade)
     print("="*20)
+
 #mapa oponente
 mapaoponente = cria_mapa(10)
+mapaoponenteoculto = cria_mapa(10)
 
 # paisoponente, frotaoponente  = random.choice(list(PAISES.items()))
 blocosoponente = []
@@ -47,13 +49,15 @@ print(f'\n\u001b[32mA batalha não será fácil...Raposa, chegou a hora de ser c
 #mapa jogador
 mapajogador = cria_mapa(10)
 paisjogador = (input("Raposa, digite o nome do país escolhido:")).capitalize()
-# primeiraletra = paisjogador[0]
-# restante = paisjogador[1:]
-# primeiraletra = primeiraletra.upper()
-# restante = restante.lower()
-# paisjogador = primeiraletra + restante
 
-if paisjogador not in PAISES:
+#outro jeito de aceitar variações de como se escreve o nome dos países
+    # primeiraletra = paisjogador[0]
+    # restante = paisjogador[1:]
+    # primeiraletra = primeiraletra.upper()
+    # restante = restante.lower()
+    # paisjogador = primeiraletra + restante
+
+while paisjogador not in PAISES:
     print("\n\u001b[32mEsse país não está disponível\u001b[0m\n")
     paisjogador =(input("Raposa, digite o nome do país escolhido:\u001b[0m\n")).capitalize()
 
@@ -65,8 +69,13 @@ print('\n\u001b[32mÓtima escolha raposa! A sua frota será:\u001b[0m\n')
 # print(mapa_comp)
 # mapa_comp = mostrar_mapa_comp(mapaoponente, ALFABETO)
 # print(mapa_comp)
-print(frotajogador)
-print('O computador posicionou suas tropas')
+
+#mostra a frota do país escolhido pelo jogador
+
+for frota, quantidade in frotajogador.items():
+    print('     ', frota, ':', quantidade)
+print('\n\u001b[32mO computador posicionou suas tropas\u001b[0m\n')
+
 # print("COMPUTADOR- {0}".format(PAISOPONENTE))
 # espaçamento_inicial = "   "
 # letras = [letra + "  " for letra in ALFABETO[:ALFABETO.index('J')+1]]
@@ -83,9 +92,14 @@ for naviojogador, qntd_naviojogador in frotajogador.items():
             for i in range(num_navios):
                 blocosjogador.append(tamanho)
 
-alocacaojogador = aloca_navios_player(mapajogador,blocosjogador)
+mapajogador = aloca_navios_player(mapajogador,blocosjogador)
 
-print(alocacaojogador)
+
+
+#print("\n ")
+mostrar_mapa_comp(mapaoponente,ALFABETO,"Situação atual")
+#print("\n ")
+mostrar_mapa_jog(mapajogador,ALFABETO,"Situação atual")
 
 quem_joga = random.randint(0, 1)
 
@@ -102,35 +116,41 @@ while not foi_derrotado(mapajogador) and not foi_derrotado(mapaoponente):
             coluna_ataque_comp = random.randint(0,len(mapajogador)-1)
         if mapajogador[linha_ataque_comp][coluna_ataque_comp] == 'N':
             mapajogador[linha_ataque_comp][coluna_ataque_comp] = 'X'
-            if foi_derrotado(mapajogador) == True:
-                print('Não foi dessa vez =(, você perdeu!')
-            else:
-                print(f'Jogador: \n {mapajogador}')
-                print(f'Oponente: \n {mapaoponente}')
-                quem_joga = 1
+
+            mostrar_mapa_comp(mapaoponente,ALFABETO,'Situação atual')
+            mostrar_mapa_jog(mapajogador,ALFABETO,'Situação atual')
+            quem_joga = 1
         else:
             mapajogador[linha_ataque_comp][coluna_ataque_comp] = 'A'
-            print(f'Jogador: \n {mapajogador}')
-            print(f'Oponente: \n {mapaoponente}')
+            mostrar_mapa_comp(mapaoponente,ALFABETO,'Situação atual')
+            mostrar_mapa_jog(mapajogador,ALFABETO,'Situação atual')
             quem_joga = 1
     else:
-        print('está na hora de atacar')
+        print('Está na hora de atacar')
         time.sleep(1)
         linha_ataque = int(input('qual linha você irá atacar? '))
-        coluna_ataque = int(input('qual coluna você irá atacar? '))
+        coluna_ataque = (input('qual coluna você irá atacar? ')).upper()
+        coluna_ataque = ALFABETO.find(coluna_ataque)
         while mapaoponente[linha_ataque][coluna_ataque] == 'X' or mapaoponente[linha_ataque][coluna_ataque] == 'A':
+            print("Já foi atacado, tente novamente")
             linha_ataque = int(input('qual linha você irá atacar? '))
-            coluna_ataque = int(input('qual coluna você irá atacar? '))
+            coluna_ataque = (input('qual coluna você irá atacar? ')).upper()
+            coluna_ataque = ALFABETO.find(coluna_ataque)
         if mapaoponente[linha_ataque][coluna_ataque] == 'N':
             mapaoponente[linha_ataque][coluna_ataque] = 'X'
+            #mapaoponenteoculto[linha_ataque][coluna_ataque] = 'X'
+            print("Isso aí, Raposa! Acertou um navio")
             if foi_derrotado(mapaoponente) == True:
                 print('Parabéns, você ganhou!!')
             else:
-                print(f'Jogador: \n {mapajogador}')
-                print(f'Oponente: \n {mapaoponente}')
-                quem_joga = 1
+                mostrar_mapa_comp(mapaoponente,ALFABETO,'Situação atual')
+                mostrar_mapa_jog(mapajogador,ALFABETO,'Situação atual')
+                quem_joga = 0
         else:
             mapaoponente[linha_ataque][coluna_ataque] = 'A'
-            print(f'Jogador: \n {mapajogador}')
-            print(f'Oponente: \n {mapaoponente}')
-            quem_joga = 1
+           # mapaoponenteoculto[linha_ataque][coluna_ataque] = 'A'
+            print("Poxa, Raposa! A mira falhou e você acertou a água!")
+            mostrar_mapa_comp(mapaoponente,ALFABETO,'Situação atual')
+            mostrar_mapa_jog(mapajogador,ALFABETO,'Situação atual')
+            
+            quem_joga = 0
