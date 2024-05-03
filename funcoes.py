@@ -123,7 +123,7 @@ def aloca_navios_player(mapa,blocos):
                 else:
                     print("\nu001b[32mEssa orientação não está disponível\u001b[0m\n")
                     orientacao = int(input('qual a orientação a ser atacada? '))
-            
+            linha -= 1
             if posicao_suporta(mapa,blocos_navio,linha,coluna,orientacao):
                 
                 if orientacao == 'v':
@@ -175,10 +175,15 @@ def mostrar_mapa_comp(mapa, ALFABETO,titulo):
     for i in range(len(mapa)):
         print(str(i + 1), " ", end="")
         for j in range(len(mapa)):
-            if mapa[i][j] == "N":
-                print(" "," ", end="")
-            else:
-                print(mapa[i][j], " ", end="")
+            elemento = mapa[i][j]
+            if elemento == 'N':
+                print('   ',end="")
+            if elemento == 'A':
+                print('{0}███{1}'.format(CORES['blue'],CORES['reset']),end="")
+            if elemento == 'X':
+                print('{0}███{1}'.format(CORES['red'],CORES['reset']),end="")
+            if elemento == ' ':
+                print(elemento+"  ",end="")
         print(str(i + 1))
 
     print("   ", end="")
@@ -202,9 +207,15 @@ def mostrar_mapa_jog(mapa, ALFABETO,titulo):
     for i in range(len(mapa)):
         print(str(i + 1), " ", end="")
         for j in range(len(mapa)):
-            
-    
-            print(mapa[i][j], " ", end="")
+            elemento = mapa[i][j]
+            if elemento == 'N':
+                print('{0}███{1}'.format(CORES['green'],CORES['reset']),end="")
+            if elemento == 'A':
+                print('{0}███{1}'.format(CORES['blue'],CORES['reset']),end="")
+            if elemento == 'X':
+                print('{0}███{1}'.format(CORES['red'],CORES['reset']),end="")
+            if elemento == ' ':
+                print(elemento+"  ",end="")
         print(str(i + 1))
 
     print("   ", end="")
